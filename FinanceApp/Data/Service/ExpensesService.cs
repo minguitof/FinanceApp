@@ -37,8 +37,6 @@ namespace FinanceApp.Data.Service
             }
         }
 
-
-
         public async Task<IEnumerable<Expense>> GetAll()
         {
             var expenses = await _context.Expenses.ToListAsync();

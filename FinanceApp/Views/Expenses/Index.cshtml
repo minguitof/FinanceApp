@@ -2,6 +2,20 @@
 
 <h2>My Expenses</h2>
 
+@if (TempData["ImportError"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @Html.Raw(TempData["ImportError"])
+    </div>
+}
+
+@if (TempData["ImportSuccess"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["ImportSuccess"]
+    </div>
+}
+
 <p>
     @* Enlace para crear un nuevo Expenses | Gasto  *@
     <a asp-action="Create">Add new expense</a>
@@ -42,6 +56,20 @@
 <div>
     <canvas style="max-width: 450px; max-height:450px;" id="myChart"></canvas>
 </div>
+
+
+<div class="d-flex justify-content-center align-items-center gap-2 mt-3">
+    <a class="btn btn-success" asp-action="ExportToExcel">Exportar a Excel</a>
+
+    <form asp-action="ImportFromExcel" asp-controller="Expenses" enctype="multipart/form-data" method="post" class="d-flex align-items-center gap-2">
+        <input type="file" name="file" class="form-control form-control-sm" style="width: auto;" />
+        <button type="submit" class="btn btn-primary">Importar Excel</button>
+    </form>
+</div>
+
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
