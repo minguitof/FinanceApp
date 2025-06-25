@@ -15,6 +15,29 @@ namespace FinanceApp.Data.Service
             _context.Expenses.Add(expense);
             await _context.SaveChangesAsync();
         }
+        //Obtener data
+        public async Task<Expense?> GetById(int id)
+        {
+            return await _context.Expenses.FindAsync(id);
+        }
+        //Updata data
+        public async Task Update(Expense expense)
+        {
+            _context.Expenses.Update(expense);
+            await _context.SaveChangesAsync();
+        }
+        //Delete data
+        public async Task Delete(int id)
+        {
+            var expense = await _context.Expenses.FindAsync(id);
+            if (expense != null)
+            {
+                _context.Expenses.Remove(expense);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+
 
         public async Task<IEnumerable<Expense>> GetAll()
         {

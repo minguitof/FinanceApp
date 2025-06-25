@@ -2,6 +2,11 @@
 
 <h2>My Expenses</h2>
 
+<p>
+    @* Enlace para crear un nuevo Expenses | Gasto  *@
+    <a asp-action="Create">Add new expense</a>
+</p>
+
 <div class="container">
     <table class="table table-bordered">
         <thead class="table-light">
@@ -10,6 +15,7 @@
                 <th>Amount</th>
                 <th>Category</th>
                 <th>Date</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +26,12 @@
                     <td>@item.Amount $</td>
                     <td>@item.Category</td>
                     <td>@item.Date.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        @* Acciones disponibles para el empleado *@
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> 
+                    </td>
                 </tr>
             }
         </tbody>
