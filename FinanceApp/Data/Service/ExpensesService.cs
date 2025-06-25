@@ -37,12 +37,14 @@ namespace FinanceApp.Data.Service
             }
         }
 
+        // get all the data
         public async Task<IEnumerable<Expense>> GetAll()
         {
             var expenses = await _context.Expenses.ToListAsync();
             return expenses;
         }
 
+        // Chart.js - graphics
         public IQueryable GetChartData()
         {
             var data = _context.Expenses
@@ -54,5 +56,14 @@ namespace FinanceApp.Data.Service
                               });
             return data;
         }
+
+        // Search
+        public async Task<IEnumerable<Expense>> SearchByDescription(string searchTerm)
+        {
+            return await _context.Expenses
+                                 .Where(e => e.Description.ToLower().Contains(searchTerm.ToLower()))
+                                 .ToListAsync();
+        }
+
     }
 }

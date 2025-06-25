@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.InkML;
 using FinanceApp.Data;
 using FinanceApp.Data.Service;
 using FinanceApp.Models;
@@ -14,11 +15,23 @@ namespace FinanceApp.Controllers
         {
             _expensesService = expensesService;
         }
-        public async Task<IActionResult> Index()
+        // Index y Search
+        public async Task<IActionResult> Index(string? searchTerm)
         {
-            var expenses = await _expensesService.GetAll();
+            IEnumerable<Expense> expenses;
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                expenses = await _expensesService.SearchByDescription(searchTerm);
+            }
+            else
+            {
+                expenses = await _expensesService.GetAll();
+            }
+
             return View(expenses);
         }
+
         public IActionResult Create()
         {
             return View();
@@ -213,7 +226,6 @@ namespace FinanceApp.Controllers
 
             return RedirectToAction("Index");
         }
-
 
 
     }

@@ -9,8 +9,8 @@ namespace FinanceApp.Data.Service
         Task<Expense?> GetById(int id);
         Task Update(Expense expense);
         Task Delete(int id);
+        Task<IEnumerable<Expense>> SearchByDescription(string searchTerm);
         IQueryable GetChartData();
-        
 
     }
 }
